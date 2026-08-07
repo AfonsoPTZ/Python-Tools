@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Converter MVP</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">Frontend puro + API Express + conversores Python</p>
+        <h1>Converta arquivos sem framework.</h1>
+        <p class="lead">
+          Envie um arquivo, escolha o tipo de conversao e baixe o resultado gerado pelo microsservico Python.
+        </p>
+      </section>
+
+      <section class="panel">
+        <form id="converter-form" class="form">
+          <label>
+            Arquivo
+            <input id="file-input" type="file" name="file" required />
+          </label>
+
+          <label>
+            Tipo de conversao
+            <select id="conversion-type" name="conversionType" required>
+              <option value="docx-pdf">Word (DOCX) para PDF</option>
+              <option value="docx-png">Word (DOCX) para PNG (1 imagem por pagina, em ZIP)</option>
+              <option value="pdf-png">PDF para PNG (1 imagem por pagina, em ZIP)</option>
+              <option value="pdf-docx">PDF para Word (DOCX)</option>
+              <option value="xlsx-pdf">Excel (XLSX) para PDF</option>
+              <option value="pptx-pdf">PowerPoint (PPTX) para PDF</option>
+              <option value="video-mp3">Video para MP3</option>
+              <option value="image-png">Imagem para PNG</option>
+            </select>
+          </label>
+
+          <button type="submit">Converter</button>
+        </form>
+
+        <div class="status-card">
+          <div>
+            <span class="status-label">Status</span>
+            <p id="status-text">Aguardando upload.</p>
+          </div>
+          <a id="download-link" class="download-link" href="#" hidden>Baixar resultado</a>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
