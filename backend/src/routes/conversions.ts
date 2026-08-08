@@ -17,7 +17,8 @@ const diskStorage = multer.diskStorage({
   }
 });
 
-const uploadMiddleware = multer({ storage: diskStorage, limits: { fileSize: 250 * 1024 * 1024 } });
+// 1GB de limite para caber videos maiores; precisa ficar igual ao client_max_body_size do Nginx (frontend/nginx.conf).
+const uploadMiddleware = multer({ storage: diskStorage, limits: { fileSize: 1024 * 1024 * 1024 } });
 const conversionRouter = Router();
 
 conversionRouter.get('/', (_request, response) => {
@@ -26,7 +27,7 @@ conversionRouter.get('/', (_request, response) => {
     message: 'Envie um arquivo via POST para esta rota.',
     methods: ['POST'],
     fields: ['file', 'conversionType'],
-    conversions: ['docx-pdf', 'docx-png', 'pdf-png', 'pdf-docx', 'xlsx-pdf', 'pptx-pdf', 'video-mp3', 'image-png']
+    conversions: ['pdf-png', 'pdf-docx', 'video-mp3', 'audio-text', 'image-png']
   });
 });
 

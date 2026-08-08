@@ -7,13 +7,10 @@ import { createConvertedName, deleteFileIfExists, resolveOutputPath } from './te
 import { runPythonScript } from './pythonRunner';
 
 export type ConversionType =
-  | 'docx-pdf'
-  | 'docx-png'
   | 'pdf-png'
   | 'pdf-docx'
-  | 'xlsx-pdf'
-  | 'pptx-pdf'
   | 'video-mp3'
+  | 'audio-text'
   | 'image-png';
 
 interface ConversionDetails {
@@ -34,19 +31,8 @@ export interface ConversionResult {
 }
 
 const conversionDetailsByType: Record<ConversionType, ConversionDetails> = {
-  'docx-pdf': {
-    scriptName: 'docx_to_pdf.py',
-    outputExtension: '.pdf',
-    mimeType: 'application/pdf'
-  },
-  'docx-png': {
-    // Cada pagina do DOCX vira um PNG separado, entao a saida e um ZIP com uma imagem por pagina.
-    scriptName: 'docx_to_png.py',
-    outputExtension: '.zip',
-    mimeType: 'application/zip'
-  },
   'pdf-png': {
-    // Mesma logica do DOCX: um PNG por pagina do PDF, empacotados em um ZIP.
+    // Um PNG por pagina do PDF, empacotados em um ZIP.
     scriptName: 'pdf_to_png.py',
     outputExtension: '.zip',
     mimeType: 'application/zip'
@@ -56,20 +42,15 @@ const conversionDetailsByType: Record<ConversionType, ConversionDetails> = {
     outputExtension: '.docx',
     mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
   },
-  'xlsx-pdf': {
-    scriptName: 'xlsx_to_pdf.py',
-    outputExtension: '.pdf',
-    mimeType: 'application/pdf'
-  },
-  'pptx-pdf': {
-    scriptName: 'pptx_to_pdf.py',
-    outputExtension: '.pdf',
-    mimeType: 'application/pdf'
-  },
   'video-mp3': {
     scriptName: 'video_to_mp3.py',
     outputExtension: '.mp3',
     mimeType: 'audio/mpeg'
+  },
+  'audio-text': {
+    scriptName: 'audio_to_text.py',
+    outputExtension: '.txt',
+    mimeType: 'text/plain'
   },
   'image-png': {
     scriptName: 'image_to_png.py',
